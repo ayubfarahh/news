@@ -9,14 +9,13 @@
 		<header>
 			<section>
 				<h1>Northampton News</h1>
-				<h4>Information about
-				advertisement coming soon<h4>
 			</section>
 		</header>
 		<nav>
 			<ul>
 				<li><a href="/">Home</a></li>
 				<li><a href="latest.php">Latest Articles</a></li>
+				<li><a href="advertise.php">Advertise with us</a></li>
 				<li><a href="#">Select Category</a>
 					<ul>
 						<li><a href="news.php">Local News</a></li>
