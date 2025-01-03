@@ -17,11 +17,17 @@
 				<li><a href="latest.php">Latest Articles</a></li>
 				<li><a href="advertise.php">Advertise with us</a></li>
 				<li><a href="#">Select Category</a>
-					<ul>
-						<li><a href="news.php">Local News</a></li>
-						<li><a href="events.php">Local Events</a></li>
-						<li><a href="sport.php">Sport</a></li>
-					</ul>
+				<ul>
+                    <?php
+                    // Dynamically load categories into the navigation bar
+                    $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
+                    $stmt = $pdo->prepare('SELECT * FROM category ORDER BY name ASC');
+                    $stmt->execute();
+                    foreach ($stmt as $category) {
+                        echo '<li><a href="category.php?id=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a></li>';
+                    }
+                    ?>
+                </ul>
 				</li>
 				<li><a href="contact.php">Contact us</a></li>
 			</ul>
