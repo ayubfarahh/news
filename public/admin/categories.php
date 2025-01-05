@@ -12,5 +12,5 @@ $categories = $stmt->fetchAll();
 // Pass categories to the template
 $output = loadTemplate('adminTemplates/categories.html.php', ['categories' => $categories]);
 
-require 'adminTemplates/Layout.html.php';
+require 'adminTemplates/layout.html.php';
 ?>

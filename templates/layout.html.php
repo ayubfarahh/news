@@ -18,15 +18,21 @@
 				<li><a href="advertise.php">Advertise with us</a></li>
 				<li><a href="#">Select Category</a>
 				<ul>
-                    <?php
-                    // Dynamically load categories into the navigation bar
-                    $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
-                    $stmt = $pdo->prepare('SELECT * FROM category ORDER BY name ASC');
-                    $stmt->execute();
-                    foreach ($stmt as $category) {
-                        echo '<li><a href="category.php?id=' . $category['id'] . '">' . htmlspecialchars($category['name']) . '</a></li>';
-                    }
-                    ?>
+				<?php
+				// Updated navigation bar remember to clean
+					$pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
+					$stmt = $pdo->prepare('SELECT * FROM category ORDER BY name ASC');
+					$stmt->execute();
+
+					foreach ($stmt as $category) {
+    					// Get the last word of the category name (1/2)
+    					$words = explode(' ', $category['name']); // Split the name by spaces
+    					$lastWord = strtolower(end($words)) . '.php'; // 
+    					echo '<li><a href="' . htmlspecialchars($lastWord) . '">' . htmlspecialchars($category['name']) . '</a></li>';
+					}
+				?>
+
+
                 </ul>
 				</li>
 				<li><a href="contact.php">Contact us</a></li>
