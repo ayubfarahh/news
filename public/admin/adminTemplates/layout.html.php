@@ -13,8 +13,8 @@
     </header>
     <nav>
         <ul>
-            <li><a href="/admin/">Home</a></li>
-            <li><a href="/admin/latest.php">Latest Articles</a></li>
+            <li><a href="/admin/index.php">Home</a></li>
+            <li><a href="/admin/articles.php">Latest Articles</a></li>
             <li><a href="#">Select Category</a>
                 <ul>
                 <?php
