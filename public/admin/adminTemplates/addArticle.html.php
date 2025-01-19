@@ -28,7 +28,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             }
         }
 
-        // Insert the article into the database
+        // INSERT ARTICLE
         $stmt = $pdo->prepare('
             INSERT INTO article (title, description, categoryId, date, authorId, image) 
             VALUES (:title, :description, :categoryId, :date, :authorId, :image)
@@ -39,8 +39,8 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
             'description' => $_POST['description'],
             'categoryId' => $_POST['categoryId'],
             'date' => (new DateTime())->format('Y-m-d H:i:s'),
-            'authorId' => $_SESSION['userId'], // Use logged-in user's ID
-            'image' => $imagePath, // Store the image path in the database
+            'authorId' => $_SESSION['userId'], 
+            'image' => $imagePath, 
         ]);
 
         echo 'Article added successfully.';
@@ -67,7 +67,7 @@ if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] === true) {
     echo 'Please log in to add an article.';
 }
 
-// Display Articles with Author's Name
+// ARTICLES WITH AUTHORS NAMES
 $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
 $stmt = $pdo->prepare('
     SELECT article.*, staff.username AS author_name 
@@ -84,9 +84,7 @@ foreach ($stmt as $article) {
     echo '<td><a href="author_articles.php?id=' . $article['authorId'] . '">' . htmlspecialchars($article['author_name']) . '</a></td>';
     echo '<td>' . htmlspecialchars($article['date']) . '</td>';
     echo '<td>' . htmlspecialchars($article['description']) . '</td>';
-    echo '<td><a href="editarticle.php?id=' . $article['id'] . '">Edit</a></td>';
-    echo '<td><a href="deletearticle.php?id=' . $article['id'] . '">Delete</a></td>';
-    echo '</tr>';
+    
 }
 echo '</table>';
 ?>

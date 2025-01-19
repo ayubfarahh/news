@@ -14,23 +14,8 @@
     <nav>
         <ul>
             <li><a href="/admin/index.php">Home</a></li>
-            <li><a href="/admin/articles.php">Latest Articles</a></li>
-            <li><a href="#">Select Category</a>
-                <ul>
-                <?php
-				// Updated navigation bar for admin
-					$pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
-					$stmt = $pdo->prepare('SELECT * FROM category ORDER BY name ASC');
-					$stmt->execute();
-
-					foreach ($stmt as $category) {
-    					// Get the last word of the category name
-    					$words = explode(' ', $category['name']); // Split the name by spaces
-    					$lastWord = strtolower(end($words)) . '.php'; // Append '.php'
-    					echo '<li><a href="/admin/' . htmlspecialchars($lastWord) . '">' . htmlspecialchars($category['name']) . '</a></li>';
-					}
-				?>
-                </ul>
+            <li><a href="/admin/articles.php">Edit Articles</a></li>
+            <li><a href="/admin/categories.php">Edit Categories</a>
             </li>
             <li><a href="/admin/contact.php">Contact Admin</a></li>
         </ul>

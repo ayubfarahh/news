@@ -1,41 +1,46 @@
 <nav>
-				<ul>
-					<li><a href="addcategory.php">Add Category</a></li>
-					<li><a href="addarticle.php">Add Article</a></li>
-					<li><a href="categories.php">List Categories</a></li>
-					<li><a href="articles.php">List Articles</a></li>
-				</ul>
-            </nav>
-            <article>
-                <h2>Add category</h2>
-                <?php
+    <ul>
+        <li><a href="addcategory.php">Add Category</a></li>
+        <li><a href="addarticle.php">Add Article</a></li>
+        <li><a href="categories.php">List Categories</a></li>
+        <li><a href="articles.php">List Articles</a></li>
+    </ul>
+</nav>
+<article>
+    <h2>Categories</h2>
+    <?php
+    if (isset($_SESSION['loggedin'])) {
+        $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
 
-                if (isset($_SESSION['loggedin'])) {
-                    $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
-                        
-                    $stmt = $pdo->prepare('SELECT * FROM category');
-                    $stmt->execute();
+        // fetch categories
+        $stmt = $pdo->prepare('SELECT * FROM category ORDER BY name ASC');
+        $stmt->execute();
+        $categories = $stmt->fetchAll();
 
-                    echo '<table>';
-                    foreach ($stmt as $category) {
-                        echo '<tr>';
-                        echo '<td>' . $category['name'] . '</td>';
-                        echo '<td><a href="editcategory.php?id=' . $category['id'] . '">Edit</a></td>';
-                        echo '<td><a href="deletecategory.php?id=' . $category['id'] . '">Delete</a></td>';
-                        echo '</td>';
-                    }
-                    echo '</table>';
-                }
-                else {
-                    ?>
-                    <form action="index.php" method="POST">
-                       <label>Username</label>                                              
-                       <input type="text" name="username" /> 
-                       <label>Password</label>
-                       <input type="password" name="password" />
-                       <input type="submit" name="submit" value="submit" />
-                    </form>
-                    <?php   
-                }
-                ?>
-            </article>
+        if (!empty($categories)) {
+            echo '<table>';
+            foreach ($categories as $category) {
+                echo '<tr>';
+                echo '<td>' . htmlspecialchars($category['name'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td><a href="editcategory.php?id=' . htmlspecialchars($category['id'], ENT_QUOTES, 'UTF-8') . '">Edit</a></td>';
+                echo '<td><a href="deletecategory.php?id=' . htmlspecialchars($category['id'], ENT_QUOTES, 'UTF-8') . '">Delete</a></td>';
+                echo '</tr>';
+            }
+            echo '</table>';
+        } else {
+            echo '<p>No categories found.</p>';
+        }
+    } else {
+        // Display login form if not logged in
+        ?>
+        <form action="index.php" method="POST">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required />
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+            <input type="submit" name="submit" value="Login" />
+        </form>
+        <?php
+    }
+    ?>
+</article>

@@ -1,4 +1,6 @@
 <?php
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
 
@@ -10,9 +12,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $user = $stmt->fetch();
 
     if ($user && password_verify($password, $user['password'])) {
+       
         $_SESSION['userId'] = $user['id'];
         $_SESSION['username'] = $user['username'];
-        echo 'Login successful. <a href="latest.php">Checkout the latest articles</a>';
+
+        
+        header('Location: latest.php');
+        exit(); 
     } else {
         echo 'Invalid email or password.';
     }

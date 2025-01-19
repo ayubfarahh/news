@@ -4,7 +4,7 @@ $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student'
 if (isset($_GET['name'])) {
     $categoryName = $_GET['name'];
 
-    // Fetch articles for the given category
+   
     $stmt = $pdo->prepare('
         SELECT a.id, a.title, a.image
         FROM article a
@@ -20,7 +20,7 @@ if (isset($_GET['name'])) {
     echo '<ul>';
     foreach ($articles as $article) {
         echo '<li>';
-        // If the article has an image, display it
+        
         if ($article['image']) {
             echo '<img src="' . htmlspecialchars($article['image']) . '" alt="Image for ' . htmlspecialchars($article['title']) . '" width="100" />';
         }

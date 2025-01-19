@@ -18,33 +18,12 @@ if (isset($_GET['id'])) {
         // Display the article's title
         echo '<h1>' . htmlspecialchars($article['title']) . '</h1>';
         
-        // Display the article's publication date
+        
         echo '<p><em>Published on ' . htmlspecialchars($article['date']) . '</em></p>';
 
-        // If the article has an image, display it
-        if ($article['image']) {
-            // Get the image filename
-            $imageFile = htmlspecialchars($article['image']);
-
-            // Check if the path already contains 'uploads/'
-            if (strpos($imageFile, 'uploads/') === 0) {
-                $imageUrl = "/admin/" . $imageFile; // Use the path directly
-            } else {
-                $imageUrl = "/admin/uploads/" . $imageFile; // Construct the full path
-            }
-
-            // Check if the file exists before displaying it
-            if (file_exists(__DIR__ . '/uploads/' . basename($imageFile))) {
-                echo '<img src="' . $imageUrl . '" alt="Image for ' . htmlspecialchars($article['title']) . '" width="500" />';
-            } else {
-                echo '<p>Image file not found: ' . $imageUrl . '</p>';
-            }
-        }
-
-        // Display the article's description
         echo '<p>' . htmlspecialchars($article['description']) . '</p>';
 
-        // Check if the user is logged in
+        
         if (isset($_SESSION['userId'])) {
             // Handle comment submission
             if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
@@ -67,7 +46,7 @@ if (isset($_GET['id'])) {
                 }
             }
 
-            // Display the comment submission form
+            // comment submision form here 
             echo '<h2>Leave a Comment</h2>';
             echo '
                 <form action="" method="POST">
@@ -80,7 +59,7 @@ if (isset($_GET['id'])) {
             echo '<p>Please <a href="login.php">log in</a> to leave a comment.</p>';
         }
 
-        // Fetch and display comments for this article
+        // show the comments
         echo '<h2>Comments</h2>';
         $stmt = $pdo->prepare('
             SELECT c.comment, c.date, u.username 
@@ -103,7 +82,7 @@ if (isset($_GET['id'])) {
             echo '<p>No comments yet. Be the first to comment!</p>';
         }
     } else {
-        // If the article is not found, show a message
+        
         echo '<p>Article not found.</p>';
     }
 } else {

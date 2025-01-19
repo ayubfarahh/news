@@ -10,7 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt = $pdo->prepare('INSERT INTO users (username, email, password) VALUES (:username, :email, :password)');
         $stmt->execute(['username' => $username, 'email' => $email, 'password' => $password]);
 
-        echo 'Registration successful. <a href="login.php">Log in</a>';
+        
+        header('Location: latest.php');
+        exit(); 
     } else {
         echo 'Please fill in all fields.';
     }

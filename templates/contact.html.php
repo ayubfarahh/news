@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 } else {
    
 ?>
-
+   <!-- // come back to look at this form later -->
 <article>
     <h2>Contact Us</h2>
     <p>Email: enquiries@northamptonnews.com</p>

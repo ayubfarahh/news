@@ -1,7 +1,7 @@
 <?php
 $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
 
-//Ensure only admins can access this page
+
 
 
 // Add new staff
@@ -20,7 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_staff'])) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['remove_staff'])) {
     $id = $_POST['id'];
 
-    // Prevent deletion of your account
+  
     $stmt = $pdo->prepare('SELECT admin FROM staff WHERE id = :id');
     $stmt->execute(['id' => $id]);
     $staff = $stmt->fetch();

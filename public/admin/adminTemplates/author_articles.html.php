@@ -1,11 +1,11 @@
 <?php
 $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
 
-// Get the authorId from the URL
+// author id from the urrl
 $authorId = isset($_GET['id']) ? (int) $_GET['id'] : 0;
 
 if ($authorId) {
-    // Fetch all articles by this author
+    
     $stmt = $pdo->prepare('
         SELECT article.*, staff.username AS author_name 
         FROM article 

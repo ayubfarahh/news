@@ -19,16 +19,16 @@
                 <li><a href="#">Select Category</a>
                     <ul>
                         <?php
-                        // Establish a database connection
+                        
                         $pdo = new PDO('mysql:host=mysql;dbname=news;charset=utf8', 'student', 'student');
                         
-                        // Fetch all categories sorted by name
+                        
                         $stmt = $pdo->prepare('SELECT DISTINCT name FROM category ORDER BY name ASC');
                         $stmt->execute();
 
-                        // Loop through the categories to create menu items
+                        
                         foreach ($stmt as $category) {
-                            $categoryFile = 'category.php?name=' . urlencode($category['name']); // Generate the link dynamically
+                            $categoryFile = 'category.php?name=' . urlencode($category['name']); 
                             echo '<li><a href="' . htmlspecialchars($categoryFile) . '">' . htmlspecialchars($category['name']) . '</a></li>';
                         }
                         ?>
